@@ -6,6 +6,11 @@ public class InputController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 {
 	private Vector2 startPos;
 	private Vector2 direction;
+	
+	public Vector2 DragDirection
+	{
+		get { return direction; }
+	}
 
 	public Vector3 DragDirection2Dto3D
 	{
