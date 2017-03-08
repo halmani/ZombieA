@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -11,7 +12,8 @@ public class Player : MonoBehaviour
 	public Camera playerCamera;
 	public InputController leftInput;
 	public InputController rightInput;
-	public float speed = 0f;
+	public float transSpeed = 0f;
+	public float jumpSpeed = 0f;
 	public float rotSpeed = 0f;
 	public float highPitchAngle = 80f;
 	public float lowPitchAngle = -70f;
@@ -30,7 +32,59 @@ public class Player : MonoBehaviour
 	private void Update()
 	{
 		// カメラ
-		var rot = rightInput.DragDirection;	
+		var rot = GetRotation();
+		MoveAtLock(rot);
+
+		// 平行移動
+		var shift = GetShift();
+		var jump = GetJump();
+		MoveTranslation(shift, jump);
+	}
+
+	// -----------------------------------------------------------------
+	Vector3 GetRotation()
+	{
+		Vector3 v = Vector3.zero;
+
+		if (0 < v.magnitude)
+			return v;
+		return rightInput.DragDirection;
+	}
+
+	Vector3 GetShift()
+	{
+		var v = Vector3.zero;
+		if (Input.GetKey(KeyCode.D))
+			v.x += 1.0f;
+		if (Input.GetKey(KeyCode.A))
+			v.x -= 1.0f;
+		if (Input.GetKey(KeyCode.W))
+			v.z += 1.0f;
+		if (Input.GetKey(KeyCode.S))
+			v.z -= 1.0f;
+
+		if (0 < v.magnitude)
+			return v;
+		return leftInput.DragDirection2Dto3D;
+	}
+
+	Vector3 GetJump()
+	{
+		var v = Vector3.zero;
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			Debug.Log("Input.GetKeyDown(KeyCode.Space)");
+			v.y += 1;
+		}
+		if (0 < v.magnitude)
+			return v;
+		return Vector3.zero;
+	}
+
+	// 実際のカメラ回転
+	private void MoveAtLock(Vector3 rot)
+	{
+		// カメラ
 		if (0 < rot.magnitude)
 		{
 			// y軸回転(キャラごと)
@@ -46,10 +100,18 @@ public class Player : MonoBehaviour
 				debugText.text = "Yaw " + yaw + "\n";
 				debugText.text += "Pitch " + pitch + "\n";
 			}
-		}		
+		}
+	}
 
-		// 移動
-		var shift = leftInput.DragDirection2Dto3D;
+	// 実際の移動
+	private void MoveTranslation(Vector3 shift, Vector3 jump)
+	{
+		MoveShift(shift, transSpeed);
+		MoveShift(jump, jumpSpeed);
+	}
+
+	private void MoveShift(Vector3 shift, float speed)
+	{
 		if (0 < shift.magnitude)
 		{
 			var dir = Quaternion.AngleAxis(trans.eulerAngles.y, Vector3.up) * shift;
