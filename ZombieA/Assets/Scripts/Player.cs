@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-	private NavMeshAgent agent;	
+	private Rigidbody rigidbody;
 	private Transform trans;
 	private Transform camTrans;
 
@@ -13,19 +13,20 @@ public class Player : MonoBehaviour
 	public InputController leftInput;
 	public InputController rightInput;
 	public float transSpeed = 0f;
+	public float dashSpeed = 1f;
 	public float jumpSpeed = 0f;
 	public float rotSpeed = 0f;
 	public float highPitchAngle = 80f;
 	public float lowPitchAngle = -70f;
 
-
 	public Text debugText;
 
+	// ------------------------------------------------------------------------------------------
 	private void Start()
 	{
 		trans = transform;
 		camTrans = playerCamera.transform;
-		agent = GetComponent<NavMeshAgent>();
+		rigidbody = GetComponent<Rigidbody>();
 		Debug.Log("player is me");
 	}
 	
@@ -42,33 +43,42 @@ public class Player : MonoBehaviour
 	}
 
 	// -----------------------------------------------------------------
-	Vector3 GetRotation()
+	private Vector3 GetRotation()
 	{
-		Vector3 v = Vector3.zero;
+		var v = Vector3.zero;
 
 		if (0 < v.magnitude)
 			return v;
 		return rightInput.DragDirection;
 	}
 
-	Vector3 GetShift()
+	private Vector3 GetShift()
 	{
 		var v = Vector3.zero;
-		if (Input.GetKey(KeyCode.D))
-			v.x += 1.0f;
-		if (Input.GetKey(KeyCode.A))
-			v.x -= 1.0f;
-		if (Input.GetKey(KeyCode.W))
-			v.z += 1.0f;
-		if (Input.GetKey(KeyCode.S))
-			v.z -= 1.0f;
-
+		v.x = Input.GetAxis("Horizontal");
+		if (v.x != 0)
+		{
+			Debug.Log("x");
+			if (Input.GetKey(KeyCode.D))
+				v.x += 1.0f;
+			if (Input.GetKey(KeyCode.A))
+				v.x -= 1.0f;
+		}
+		v.z = Input.GetAxis("Vertical");
+		if (v.z != 0)
+		{
+			Debug.Log("z");
+			if (Input.GetKey(KeyCode.W))
+				v.z += 1.0f;
+			if (Input.GetKey(KeyCode.S))
+				v.z -= 1.0f;
+		}
 		if (0 < v.magnitude)
 			return v;
 		return leftInput.DragDirection2Dto3D;
 	}
 
-	Vector3 GetJump()
+	private Vector3 GetJump()
 	{
 		var v = Vector3.zero;
 		if (Input.GetKeyDown(KeyCode.Space))
@@ -103,10 +113,17 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	private float GetShiftSpeed()
+	{
+		if (Input.GetKey(KeyCode.LeftShift))
+			return dashSpeed;
+		return transSpeed;
+	}
+
 	// 実際の移動
 	private void MoveTranslation(Vector3 shift, Vector3 jump)
 	{
-		MoveShift(shift, transSpeed);
+		MoveShift(shift, GetShiftSpeed());
 		MoveShift(jump, jumpSpeed);
 	}
 
@@ -115,7 +132,9 @@ public class Player : MonoBehaviour
 		if (0 < shift.magnitude)
 		{
 			var dir = Quaternion.AngleAxis(trans.eulerAngles.y, Vector3.up) * shift;
-			agent.Move(dir.normalized * speed * Time.deltaTime);
+			var vec = dir.normalized * speed * Time.deltaTime;
+			rigidbody.velocity += vec;
+			//transform.localPosition = transform.localPosition + vec;
 		}
 	}
 
