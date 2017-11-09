@@ -3,9 +3,9 @@ using UnityEngine.AI;
 using System.Collections;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
-	private Rigidbody rigidbody;
+	new private Rigidbody rigidbody;
 	private Transform trans;
 	private Transform camTrans;
 
@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
 	public float highPitchAngle = 80f;
 	public float lowPitchAngle = -70f;
 
+	public Weapon weapon;
+
 	public Text debugText;
 
 	// ------------------------------------------------------------------------------------------
@@ -27,7 +29,7 @@ public class Player : MonoBehaviour
 		trans = transform;
 		camTrans = playerCamera.transform;
 		rigidbody = GetComponent<Rigidbody>();
-		Debug.Log("player is me");
+//		Debug.Log("player is me");
 	}
 	
 	private void Update()
@@ -38,14 +40,23 @@ public class Player : MonoBehaviour
 
 		// 平行移動
 		var shift = GetShift();
-		var jump = GetJump();
-		MoveTranslation(shift, jump);
+		MoveTranslation(shift);
+
+		// 発射
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			var forward = Quaternion.AngleAxis(trans.eulerAngles.y, Vector3.up) * Vector3.forward;
+			weapon.Shot(forward.normalized);
+		}
 	}
 
 	// -----------------------------------------------------------------
 	private Vector3 GetRotation()
 	{
 		var v = Vector3.zero;
+
+		v.x =  Input.GetAxis("Horizontal_R") ;
+		v.y = -Input.GetAxis("Vertical_R");
 
 		if (0 < v.magnitude)
 			return v;
@@ -58,7 +69,7 @@ public class Player : MonoBehaviour
 		v.x = Input.GetAxis("Horizontal");
 		if (v.x != 0)
 		{
-			Debug.Log("x");
+//			Debug.Log("x");
 			if (Input.GetKey(KeyCode.D))
 				v.x += 1.0f;
 			if (Input.GetKey(KeyCode.A))
@@ -67,7 +78,7 @@ public class Player : MonoBehaviour
 		v.z = Input.GetAxis("Vertical");
 		if (v.z != 0)
 		{
-			Debug.Log("z");
+//			Debug.Log("z");
 			if (Input.GetKey(KeyCode.W))
 				v.z += 1.0f;
 			if (Input.GetKey(KeyCode.S))
@@ -76,19 +87,6 @@ public class Player : MonoBehaviour
 		if (0 < v.magnitude)
 			return v;
 		return leftInput.DragDirection2Dto3D;
-	}
-
-	private Vector3 GetJump()
-	{
-		var v = Vector3.zero;
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			Debug.Log("Input.GetKeyDown(KeyCode.Space)");
-			v.y += 1;
-		}
-		if (0 < v.magnitude)
-			return v;
-		return Vector3.zero;
 	}
 
 	// 実際のカメラ回転
@@ -121,10 +119,9 @@ public class Player : MonoBehaviour
 	}
 
 	// 実際の移動
-	private void MoveTranslation(Vector3 shift, Vector3 jump)
+	private void MoveTranslation(Vector3 shift)
 	{
 		MoveShift(shift, GetShiftSpeed());
-		MoveShift(jump, jumpSpeed);
 	}
 
 	private void MoveShift(Vector3 shift, float speed)
@@ -132,9 +129,12 @@ public class Player : MonoBehaviour
 		if (0 < shift.magnitude)
 		{
 			var dir = Quaternion.AngleAxis(trans.eulerAngles.y, Vector3.up) * shift;
-			var vec = dir.normalized * speed * Time.deltaTime;
-			rigidbody.velocity += vec;
-			//transform.localPosition = transform.localPosition + vec;
+			var vec = dir.normalized * speed;
+			rigidbody.velocity = vec;
+		}
+		else
+		{
+			rigidbody.velocity = Vector3.zero;
 		}
 	}
 
