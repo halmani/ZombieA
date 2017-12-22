@@ -45,7 +45,7 @@ public class Player : Character
 		// 発射
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			var forward = Quaternion.AngleAxis(trans.eulerAngles.y, Vector3.up) * Vector3.forward;
+			var forward = playerCamera.transform.forward;
 			weapon.Shot(forward.normalized);
 		}
 	}

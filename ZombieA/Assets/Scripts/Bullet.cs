@@ -7,17 +7,12 @@ public class Bullet : MonoBehaviour
 	new private Rigidbody rigidbody;
 
 	public Vector3 vec = Vector3.forward;
-	public float speed = 100;
 
 
 	private void Start()
 	{
 		rigidbody = GetComponent<Rigidbody>();
-	}
-
-	private void Update()
-	{
-		rigidbody.velocity = vec * speed;
+		rigidbody.AddForce(vec);
 	}
 
 	private void OnCollisionEnter(Collision collider)
