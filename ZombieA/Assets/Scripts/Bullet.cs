@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
 	new private Rigidbody rigidbody;
 
+	public int damage = 1;
 	public Vector3 vec = Vector3.forward;
 
 
