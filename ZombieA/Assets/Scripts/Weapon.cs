@@ -11,9 +11,10 @@ public class Weapon : MonoBehaviour
 		var obj = Instantiate(bulletPrefab);
 		obj.transform.SetParent(this.transform);
 		obj.transform.localPosition = Vector3.zero;
-		obj.transform.localRotation = Quaternion.identity;
+		obj.transform.localRotation = Quaternion.Euler(rot);	//Quaternion.identity;
 		var bullet = obj.GetComponent<Bullet>();
 		bullet.vec = rot;
+		obj.transform.SetParent(null);
 		Destroy(obj, 10f);
 		return obj;
 	}
