@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class InputController : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-	private Vector2 startPos;
+//	private Vector2 startPos;
 	private Vector2 direction;
 	
 	public Vector2 DragDirection
@@ -21,20 +21,20 @@ public class InputController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	private PointerEventData lastEventData;
 	public void OnBeginDrag(PointerEventData data)
 	{
-		lastEventData = data;
-		startPos = data.pressPosition;
+//		lastEventData = data;
+//		startPos = data.pressPosition;
 	}
 
 	public void OnDrag(PointerEventData data)
 	{
-		lastEventData = data;
+//		lastEventData = data;
 		direction += data.delta;
 	}
 
 	public void OnEndDrag(PointerEventData data)
 	{
-		lastEventData = data;
-		startPos = Vector2.zero;
+//		lastEventData = data;
+//		startPos = Vector2.zero;
 		direction = Vector2.zero;
 	}
 }
