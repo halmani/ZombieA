@@ -1,0 +1,71 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Awake	Enemy.cs	/^	private void Awake()$/;"	m	class:Enemy	file:
+Awake	GameManager.cs	/^	private void Awake()$/;"	m	class:GameManager	file:
+Bullet	Bullet.cs	/^public class Bullet : MonoBehaviour$/;"	c
+CalcPitch	Player.cs	/^	private Vector3 CalcPitch(Vector3 pitch)$/;"	m	class:Player	file:
+CameraRotate	Player.cs	/^	private void CameraRotate(Vector3 pitch)$/;"	m	class:Player	file:
+Character	Character.cs	/^public class Character : MonoBehaviour$/;"	c
+Count	Enemy.cs	/^	public static int Count$/;"	p	class:Enemy
+DragDirection	UI/InputController.cs	/^	public Vector2 DragDirection$/;"	p	class:InputController
+DragDirection2Dto3D	UI/InputController.cs	/^	public Vector3 DragDirection2Dto3D$/;"	p	class:InputController
+Enemy	Enemy.cs	/^public class Enemy : Character$/;"	c
+GameManager	GameManager.cs	/^public class GameManager : MonoBehaviour$/;"	c
+GetRotation	Player.cs	/^	private Vector3 GetRotation()$/;"	m	class:Player	file:
+GetShift	Player.cs	/^	private Vector3 GetShift()$/;"	m	class:Player	file:
+GetShiftSpeed	Player.cs	/^	private float GetShiftSpeed()$/;"	m	class:Player	file:
+HitDamage	Enemy.cs	/^	private void HitDamage(int damage)$/;"	m	class:Enemy	file:
+InputController	UI/InputController.cs	/^public class InputController : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler$/;"	c
+MoveAtLock	Player.cs	/^	private void MoveAtLock(Vector3 rot)$/;"	m	class:Player	file:
+MoveShift	Player.cs	/^	private void MoveShift(Vector3 shift, float speed)$/;"	m	class:Player	file:
+MoveTranslation	Player.cs	/^	private void MoveTranslation(Vector3 shift)$/;"	m	class:Player	file:
+OnBeginDrag	UI/InputController.cs	/^	public void OnBeginDrag(PointerEventData data)$/;"	m	class:InputController
+OnCollisionEnter	Bullet.cs	/^	private void OnCollisionEnter(Collision collider)$/;"	m	class:Bullet	file:
+OnCollisionEnter	Enemy.cs	/^	private void OnCollisionEnter(Collision collision)$/;"	m	class:Enemy	file:
+OnDestroy	GameManager.cs	/^	private void OnDestroy()$/;"	m	class:GameManager	file:
+OnDrag	UI/InputController.cs	/^	public void OnDrag(PointerEventData data)$/;"	m	class:InputController
+OnEndDrag	UI/InputController.cs	/^	public void OnEndDrag(PointerEventData data)$/;"	m	class:InputController
+Player	Player.cs	/^public class Player : Character$/;"	c
+RandomWalk	Enemy.cs	/^	private void RandomWalk()$/;"	m	class:Enemy	file:
+Shot	Weapon.cs	/^	public GameObject Shot(Vector3 rot)$/;"	m	class:Weapon
+Start	Bullet.cs	/^	private void Start()$/;"	m	class:Bullet	file:
+Start	Player.cs	/^	private void Start()$/;"	m	class:Player	file:
+Update	Enemy.cs	/^	private void Update()$/;"	m	class:Enemy	file:
+Update	GameManager.cs	/^	private void Update()$/;"	m	class:GameManager	file:
+Update	Player.cs	/^	private void Update()$/;"	m	class:Player	file:
+Weapon	Weapon.cs	/^public class Weapon : MonoBehaviour$/;"	c
+bulletPrefab	Weapon.cs	/^	public GameObject bulletPrefab;$/;"	f	class:Weapon
+camTrans	Player.cs	/^	private Transform camTrans;$/;"	f	class:Player	file:
+count	Enemy.cs	/^	private static int count = 0;$/;"	f	class:Enemy	file:
+damage	Bullet.cs	/^	public int damage = 1;$/;"	f	class:Bullet
+dashSpeed	Player.cs	/^	public float dashSpeed = 1f;$/;"	f	class:Player
+debugText	Player.cs	/^	public Text debugText;$/;"	f	class:Player
+direction	UI/InputController.cs	/^	private Vector2 direction;$/;"	f	class:InputController	file:
+highPitchAngle	Player.cs	/^	public float highPitchAngle = 80f;$/;"	f	class:Player
+hp	Enemy.cs	/^	public int hp = 3;$/;"	f	class:Enemy
+instance	GameManager.cs	/^	private static GameManager instance;$/;"	f	class:GameManager	file:
+jumpSpeed	Player.cs	/^	public float jumpSpeed = 0f;$/;"	f	class:Player
+lastEventData	UI/InputController.cs	/^	private PointerEventData lastEventData;$/;"	f	class:InputController	file:
+leftInput	Player.cs	/^	public InputController leftInput;$/;"	f	class:Player
+lowPitchAngle	Player.cs	/^	public float lowPitchAngle = -70f;$/;"	f	class:Player
+nowMoving	Enemy.cs	/^	private bool nowMoving = false;$/;"	f	class:Enemy	file:
+nowWalking	Enemy.cs	/^	private bool nowWalking = false;$/;"	f	class:Enemy	file:
+playerCamera	Player.cs	/^	public Camera playerCamera;$/;"	f	class:Player
+rightInput	Player.cs	/^	public InputController rightInput;$/;"	f	class:Player
+rigidbody	Bullet.cs	/^	new private Rigidbody rigidbody;$/;"	f	class:Bullet	file:
+rigidbody	Enemy.cs	/^	new private Rigidbody rigidbody;$/;"	f	class:Enemy	file:
+rigidbody	Player.cs	/^	new private Rigidbody rigidbody;$/;"	f	class:Player	file:
+rotSpeed	Player.cs	/^	public float rotSpeed = 0f;$/;"	f	class:Player
+speed	Weapon.cs	/^	public float speed = 100f;$/;"	f	class:Weapon
+time	Enemy.cs	/^	private float time = 0f;$/;"	f	class:Enemy	file:
+trans	Player.cs	/^	private Transform trans;$/;"	f	class:Player	file:
+transSpeed	Player.cs	/^	public float transSpeed = 0f;$/;"	f	class:Player
+vec	Bullet.cs	/^	public Vector3 vec = Vector3.forward;$/;"	f	class:Bullet
+walkSpeed	Enemy.cs	/^	public float walkSpeed = 0.5f;$/;"	f	class:Enemy
+walkTime	Enemy.cs	/^	private float walkTime = 0f;$/;"	f	class:Enemy	file:
+walk_speed	Enemy.cs	/^	public float walk_speed = 1f;$/;"	f	class:Enemy
+weapon	Player.cs	/^	public Weapon weapon;$/;"	f	class:Player
