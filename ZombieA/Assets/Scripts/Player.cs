@@ -134,7 +134,7 @@ public class Player : Character
 		}
 		else
 		{
-			rigidbody.velocity = Vector3.zero;
+		//	rigidbody.velocity = Vector3.zero;
 		}
 	}
 

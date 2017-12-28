@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
 	{
 		if (Enemy.Count == 0)
 		{
-			
 		}
 	}
 }
