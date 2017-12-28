@@ -13,18 +13,23 @@ public class Enemy : Character
 
 	// ローカル
 	public int hp = 3;
-	
+	public float walkSpeed = 0.5f;
+
 	new private Rigidbody rigidbody;
+	private Transform trans;
+
+	private Vector3 vec = Vector3.zero;
 	private float time = 0f;
 	private float walkTime = 0f;
 	private bool nowWalking = false;
-	public float walkSpeed = 0.5f;
+
 
 	// ---------------------------------------------
 	private void Awake()
 	{
 		count++;
 		rigidbody = GetComponent<Rigidbody>();
+		trans = transform;
 	}
 
 	private void Update()
@@ -37,24 +42,31 @@ public class Enemy : Character
 		if (time <= walkTime)
 		{
 			time += Time.deltaTime;
+			rigidbody.velocity = vec;
 		}
 		else
 		{
 			nowWalking = false;
+			vec = Vector3.zero;
 		}
 
 		if (nowWalking)
 			return;
-		var forward = transform.forward.normalized;
-		var randX = Random.Range(-1f, 1f);
-		var randZ = Random.Range(-1f, 1f);
-		var shift = new Vector3(randX, 0, randZ);
-		var dir = Quaternion.AngleAxis(transform.eulerAngles.y, Vector3.up) * shift.normalized;
-		var vec = dir.normalized * walkSpeed;
-		rigidbody.velocity = vec;
+
+		// 方向決め
+		var randY = Random.Range(0, 360f);
+		var rot = new Vector3(0, randY, 0);
+		trans.Rotate(rot);
+
+		// 移動
+		var forward = trans.forward.normalized;
+		vec = forward * walkSpeed;
+		// 立ち止まっている状態
+		if (Random.Range(0, 1f) < 0.5f)
+			vec = Vector3.zero;
 
 		time = 0f;
-		walkTime = Random.Range(2f, 10f);
+		walkTime = Random.Range(0.5f, 5f);
 		nowWalking = true;
 	}
 
