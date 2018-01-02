@@ -52,7 +52,6 @@ jumpSpeed	Player.cs	/^	public float jumpSpeed = 0f;$/;"	f	class:Player
 lastEventData	UI/InputController.cs	/^	private PointerEventData lastEventData;$/;"	f	class:InputController	file:
 leftInput	Player.cs	/^	public InputController leftInput;$/;"	f	class:Player
 lowPitchAngle	Player.cs	/^	public float lowPitchAngle = -70f;$/;"	f	class:Player
-nowMoving	Enemy.cs	/^	private bool nowMoving = false;$/;"	f	class:Enemy	file:
 nowWalking	Enemy.cs	/^	private bool nowWalking = false;$/;"	f	class:Enemy	file:
 playerCamera	Player.cs	/^	public Camera playerCamera;$/;"	f	class:Player
 rightInput	Player.cs	/^	public InputController rightInput;$/;"	f	class:Player
@@ -62,10 +61,11 @@ rigidbody	Player.cs	/^	new private Rigidbody rigidbody;$/;"	f	class:Player	file:
 rotSpeed	Player.cs	/^	public float rotSpeed = 0f;$/;"	f	class:Player
 speed	Weapon.cs	/^	public float speed = 100f;$/;"	f	class:Weapon
 time	Enemy.cs	/^	private float time = 0f;$/;"	f	class:Enemy	file:
+trans	Enemy.cs	/^	private Transform trans;$/;"	f	class:Enemy	file:
 trans	Player.cs	/^	private Transform trans;$/;"	f	class:Player	file:
 transSpeed	Player.cs	/^	public float transSpeed = 0f;$/;"	f	class:Player
 vec	Bullet.cs	/^	public Vector3 vec = Vector3.forward;$/;"	f	class:Bullet
+vec	Enemy.cs	/^	private Vector3 vec = Vector3.zero;$/;"	f	class:Enemy	file:
 walkSpeed	Enemy.cs	/^	public float walkSpeed = 0.5f;$/;"	f	class:Enemy
 walkTime	Enemy.cs	/^	private float walkTime = 0f;$/;"	f	class:Enemy	file:
-walk_speed	Enemy.cs	/^	public float walk_speed = 1f;$/;"	f	class:Enemy
 weapon	Player.cs	/^	public Weapon weapon;$/;"	f	class:Player
