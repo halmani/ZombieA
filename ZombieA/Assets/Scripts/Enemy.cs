@@ -37,12 +37,17 @@ public class Enemy : Character
 		RandomWalk();
 	}
 
+	private Vector3 newAngle;
 	private void RandomWalk()
 	{
 		if (time <= walkTime)
 		{
 			time += Time.deltaTime;
 			rigidbody.velocity = vec;
+			if (Mathf.DeltaAngle(trans.eulerAngles.y, newAngle.y) < -0.1f)
+			{
+				transform.Rotate (new Vector3 (0f, -5f, 0f));
+			}
 		}
 		else
 		{
@@ -56,7 +61,8 @@ public class Enemy : Character
 		// 方向決め
 		var randY = Random.Range(0, 360f);
 		var rot = new Vector3(0, randY, 0);
-		trans.Rotate(rot);
+		//trans.Rotate(rot);
+		newAngle = rot;
 
 		// 移動
 		var forward = trans.forward.normalized;
