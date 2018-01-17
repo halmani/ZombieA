@@ -76,7 +76,7 @@ public class Enemy : Character
 		nowWalking = true;
 	}
 
-	private void HitDamage(int damage)
+	public void HitDamage(int damage)
 	{
 		if ((hp - damage) <= 0)
 		{

@@ -31,7 +31,7 @@ public class Player : Character
 		rigidbody = GetComponent<Rigidbody>();
 //		Debug.Log("player is me");
 	}
-	
+
 	private void Update()
 	{
 		// カメラ
@@ -45,8 +45,7 @@ public class Player : Character
 		// 発射
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			var forward = playerCamera.transform.forward;
-			weapon.Shot(forward.normalized);
+			weapon.Shot();
 		}
 	}
 

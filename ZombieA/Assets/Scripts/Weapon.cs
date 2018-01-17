@@ -4,20 +4,48 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-	public GameObject bulletPrefab;
 	public float speed = 100f;
+	public int damage = 1;
 
-	public GameObject Shot(Vector3 rot)
+	public Transform muzzle;
+	public LineRenderer leaserRay;
+	private float rayRange = 30000f;
+
+
+	// -------------------------------------------------------
+	private void LateUpdate()
 	{
-		var obj = Instantiate(bulletPrefab);
-		obj.transform.SetParent(this.transform);
-		obj.transform.localPosition = Vector3.zero;
-		obj.transform.localRotation = Quaternion.identity;
-		obj.transform.localScale = Vector3.one * 0.2f;
-		var bullet = obj.GetComponent<Bullet>();
-		bullet.vec = rot.normalized * speed;
-		obj.transform.SetParent(null);
-		Destroy(obj, 10f);
-		return obj;
+		leaserRay.SetPosition(0, muzzle.position);
+
+		Ray ray = new Ray (muzzle.position, muzzle.forward);
+		RaycastHit hit;
+		Vector3 nearPoint;
+
+		if (Physics.Raycast(ray, out hit))
+		{
+			nearPoint = hit.point;
+		}
+		else
+		{
+			nearPoint = ray.origin + ray.direction * rayRange;
+		}
+		leaserRay.SetPosition(1, nearPoint);
+	}
+
+	public void Shot()
+	{
+		Ray ray = new Ray (muzzle.position, muzzle.forward);
+		RaycastHit hit;
+
+		if (Physics.Raycast(ray, out hit))
+		{
+			if (hit.collider != null)
+			{
+				var enemy = hit.collider.gameObject.GetComponent<Enemy>();
+				if (enemy == null)
+					return;
+				enemy.HitDamage(damage);
+			}
+		}
 	}
 }
