@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-	public float speed = 100f;
 	public int damage = 1;
 
 	public Transform muzzle;
 	public LineRenderer leaserRay;
+	public MeshRenderer pointCube;
 	private float rayRange = 30000f;
 
 
@@ -24,9 +24,12 @@ public class Weapon : MonoBehaviour
 		if (Physics.Raycast(ray, out hit))
 		{
 			nearPoint = hit.point;
+			pointCube.enabled = true;
+			pointCube.transform.position = hit.point;
 		}
 		else
 		{
+			pointCube.enabled = false;
 			nearPoint = ray.origin + ray.direction * rayRange;
 		}
 		leaserRay.SetPosition(1, nearPoint);
