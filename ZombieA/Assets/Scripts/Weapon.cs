@@ -9,15 +9,21 @@ public class Weapon : MonoBehaviour
 	public Transform muzzle;
 	public LineRenderer leaserRay;
 	public MeshRenderer pointCube;
+	public GameObject muzzleFlash;
 	private float rayRange = 30000f;
 
 
 	// -------------------------------------------------------
+	private void Update()
+	{
+		muzzleFlash.SetActive(false);
+	}
+
 	private void LateUpdate()
 	{
 		leaserRay.SetPosition(0, muzzle.position);
 
-		Ray ray = new Ray (muzzle.position, muzzle.forward);
+		Ray ray = new Ray(muzzle.position, muzzle.forward);
 		RaycastHit hit;
 		Vector3 nearPoint;
 
@@ -44,6 +50,7 @@ public class Weapon : MonoBehaviour
 		{
 			if (hit.collider != null)
 			{
+				muzzleFlash.SetActive(true);
 				var enemy = hit.collider.gameObject.GetComponent<Enemy>();
 				if (enemy == null)
 					return;
