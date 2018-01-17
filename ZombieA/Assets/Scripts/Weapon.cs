@@ -1,19 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
 	public int damage = 1;
+	public int bulletCount = 10;
 
 	public Transform muzzle;
 	public LineRenderer leaserRay;
 	public MeshRenderer pointCube;
 	public GameObject muzzleFlash;
 	private float rayRange = 30000f;
+	public Text bulletCountText;
 
 
 	// -------------------------------------------------------
+	private void Start()
+	{
+		UpdateBulletText();
+	}
+
+	private void UpdateBulletText()
+	{
+		bulletCountText.text = bulletCount.ToString();
+	}
+
 	private void Update()
 	{
 		muzzleFlash.SetActive(false);
@@ -43,6 +56,14 @@ public class Weapon : MonoBehaviour
 
 	public void Shot()
 	{
+		// 弾がない
+		if (bulletCount <= 0)
+			return;
+
+		// 撃つ
+		bulletCount--;
+		UpdateBulletText();
+
 		Ray ray = new Ray (muzzle.position, muzzle.forward);
 		RaycastHit hit;
 
@@ -57,5 +78,11 @@ public class Weapon : MonoBehaviour
 				enemy.HitDamage(damage);
 			}
 		}
+	}
+
+	public void Add(int addCount)
+	{
+		bulletCount += addCount;
+		UpdateBulletText();
 	}
 }

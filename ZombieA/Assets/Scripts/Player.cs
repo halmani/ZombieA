@@ -159,4 +159,21 @@ public class Player : Character
 		euler.z = 0;
 		camTrans.localEulerAngles = euler;
 	}
+
+	private void OnTriggerEnter(Collider collider)
+	{
+		var item = collider.gameObject.GetComponent<Item>();
+		if (item != null)
+		{
+			switch (item.type)
+			{
+				case Item.Type.Bullet:
+					weapon.Add(item.quantity);
+					break;
+				default:
+					break;
+			}
+			Destroy(item.gameObject);
+		}
+	}
 }

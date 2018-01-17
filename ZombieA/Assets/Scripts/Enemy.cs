@@ -14,6 +14,7 @@ public class Enemy : Character
 	// ローカル
 	public int hp = 3;
 	public float walkSpeed = 0.5f;
+	public GameObject itemObject;
 
 	new private Rigidbody rigidbody;
 	private Transform trans;
@@ -76,16 +77,37 @@ public class Enemy : Character
 		nowWalking = true;
 	}
 
+	private void Dead()
+	{
+		Destroy(this.gameObject);
+		hp = 0;
+		count--;
+	}
+
+	private void Drop()
+	{
+		if (itemObject == null)
+			return;
+		if (Random.Range(0f, 1f) < 0.5f)
+			return;
+		var obj = Instantiate(itemObject);
+		obj.transform.position = transform.position;
+		obj.transform.localRotation = Quaternion.identity;
+		var item = obj.GetComponent<Item>();
+		item.quantity = Random.Range(2, 5);
+	}
+
 	public void HitDamage(int damage)
 	{
 		if ((hp - damage) <= 0)
 		{
-			Destroy(this.gameObject);
-			hp = 0;
-			count--;
-			return;
+			Dead();
+			Drop();
 		}
-		hp -= damage;
+		else
+		{
+			hp -= damage;
+		}
 	}
 
 	private void OnCollisionEnter(Collision collision)
