@@ -42,7 +42,7 @@ public class Weapon : MonoBehaviour
 		RaycastHit hit;
 		Vector3 nearPoint;
 
-		if (Physics.Raycast(ray, out hit, rayRange, DefaultLayer))
+		if (DoRaycast(ray, out hit))
 		{
 			nearPoint = hit.point;
 			pointCube.enabled = true;
@@ -54,6 +54,11 @@ public class Weapon : MonoBehaviour
 			nearPoint = ray.origin + ray.direction * rayRange;
 		}
 		leaserRay.SetPosition(1, nearPoint);
+	}
+
+	private bool DoRaycast(Ray ray, out RaycastHit hit)
+	{
+		return Physics.Raycast(ray, out hit, rayRange, DefaultLayer);
 	}
 
 	public void Shot()
@@ -69,7 +74,7 @@ public class Weapon : MonoBehaviour
 		Ray ray = new Ray (muzzle.position, muzzle.forward);
 		RaycastHit hit;
 
-		if (Physics.Raycast(ray, out hit))
+		if (DoRaycast(ray, out hit))
 		{
 			if (hit.collider != null)
 			{

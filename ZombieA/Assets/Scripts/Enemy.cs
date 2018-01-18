@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : Character
 {
+	private const int ItemLayer = 8;
+
 	// Enemy全体の数
 	private static int count = 0;
 	public static int Count
@@ -93,6 +95,7 @@ public class Enemy : Character
 		var obj = Instantiate(itemObject);
 		obj.transform.position = transform.position;
 		obj.transform.localRotation = Quaternion.identity;
+		obj.layer = ItemLayer;
 		var item = obj.GetComponent<Item>();
 		item.quantity = Random.Range(2, 5);
 	}
