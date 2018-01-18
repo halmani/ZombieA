@@ -8,6 +8,7 @@ public class Player : Character
 	new private Rigidbody rigidbody;
 	private Transform trans;
 	private Transform camTrans;
+	private bool pushGunButton = false;
 
 	public Camera playerCamera;
 	public InputController leftInput;
@@ -43,13 +44,19 @@ public class Player : Character
 		MoveTranslation(shift);
 
 		// 発射
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.Space) || pushGunButton)
 		{
 			weapon.Shot();
+			pushGunButton = false;
 		}
 	}
 
 	// -----------------------------------------------------------------
+	public void PushGunButton()
+	{
+		pushGunButton = true;
+	}
+
 	private Vector3 GetRotation()
 	{
 		var v = Vector3.zero;
@@ -133,7 +140,7 @@ public class Player : Character
 		}
 		else
 		{
-		//	rigidbody.velocity = Vector3.zero;
+			rigidbody.velocity = Vector3.zero;
 		}
 	}
 

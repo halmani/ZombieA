@@ -109,12 +109,4 @@ public class Enemy : Character
 			hp -= damage;
 		}
 	}
-
-	private void OnCollisionEnter(Collision collision)
-	{
-		var bullet = collision.gameObject.GetComponent<Bullet>();
-		if (bullet == null)
-			return;
-		HitDamage(bullet.damage);
-	}
 }
