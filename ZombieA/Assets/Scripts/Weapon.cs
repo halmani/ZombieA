@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
-	const int ItemLayer = 8;
+	const int DefaultLayer = 1;
 
 	public int damage = 1;
 	public int bulletCount = 10;
@@ -42,7 +42,7 @@ public class Weapon : MonoBehaviour
 		RaycastHit hit;
 		Vector3 nearPoint;
 
-		if (Physics.Raycast(ray, out hit, rayRange, ItemLayer))
+		if (Physics.Raycast(ray, out hit, rayRange, DefaultLayer))
 		{
 			nearPoint = hit.point;
 			pointCube.enabled = true;
