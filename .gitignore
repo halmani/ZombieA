@@ -18,6 +18,8 @@ ExportedObj/
 *.booproj
 *.svd
 
+# Visual Studio Code
+.vscode/
 
 # Unity3D generated meta files
 *.pidb.meta
